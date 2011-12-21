@@ -5,7 +5,7 @@ describe 'Singleton-ish behavior' do
   it 'tracks all launched instances and you can get the current "instance"' do
     Rack::Payment.instances.clear
     Rack::Payment.instances.length.should == 0
-    
+
     a = Rack::Payment.new
     Rack::Payment.instances.length.should == 1
     Rack::Payment.instances.should        == [a]

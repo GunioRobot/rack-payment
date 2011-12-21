@@ -12,7 +12,7 @@ describe Rack::Payment::Helper, '#form' do
 
   it 'should be able to get just the credit_card fields' do
     @payment.credit_card_fields.length.should == Rack::Payment::CreditCard::REQUIRED.length
-    @payment.credit_card_fields.join.should include(*%w( credit_card_number credit_card_first_name 
+    @payment.credit_card_fields.join.should include(*%w( credit_card_number credit_card_first_name
                                                          credit_card_cvv credit_card_expiration_month ))
     @payment.credit_card_fields.join.should_not include('<label')
     @payment.credit_card_fields.join.should_not include('billing_address')
@@ -20,7 +20,7 @@ describe Rack::Payment::Helper, '#form' do
 
   it 'should be able to get just the billing address fields' do
     @payment.billing_address_fields.length.should == 6
-    @payment.billing_address_fields.join.should include(*%w( billing_address_zip billing_address_city 
+    @payment.billing_address_fields.join.should include(*%w( billing_address_zip billing_address_city
                                                          billing_address_name billing_address_state ))
     @payment.billing_address_fields.join.should_not include('<label')
     @payment.billing_address_fields.join.should_not include('credit_card')
@@ -29,7 +29,7 @@ describe Rack::Payment::Helper, '#form' do
   it 'should be able to get just the credit card fields *with* labels' do
     # same length ... each field has the label prepended
     @payment.credit_card_fields_with_labels.length.should == Rack::Payment::CreditCard::REQUIRED.length
-    @payment.credit_card_fields_with_labels.join.should include(*%w( credit_card_number credit_card_first_name 
+    @payment.credit_card_fields_with_labels.join.should include(*%w( credit_card_number credit_card_first_name
                                                          credit_card_cvv credit_card_expiration_month ))
     @payment.credit_card_fields_with_labels.join.should     include('<label', "for='credit_card_number'")
     @payment.credit_card_fields_with_labels.join.should_not include('billing_address')
@@ -37,7 +37,7 @@ describe Rack::Payment::Helper, '#form' do
 
   it 'should be able to get just the billing address fields *with* labels' do
     @payment.billing_address_fields_with_labels.length.should == 6
-    @payment.billing_address_fields_with_labels.join.should include(*%w( billing_address_zip billing_address_name 
+    @payment.billing_address_fields_with_labels.join.should include(*%w( billing_address_zip billing_address_name
                                                          billing_address_state billing_address_city ))
     @payment.billing_address_fields_with_labels.join.should     include('<label', "for='billing_address_zip'")
     @payment.billing_address_fields_with_labels.join.should_not include('credit_card')
@@ -75,19 +75,19 @@ describe Rack::Payment::Helper, '#fields' do
     # WARNING!  A hash is used in the background so we're not guaranteed order ... these need to be refactored because they may blow up sometimes!
     payment.fields[:credit_card][:first_name].should include("<input ",
                                                              "type='text'",
-                                                             "autofocus='true'", 
+                                                             "autofocus='true'",
                                                              "name='credit_card[first_name]'",
                                                              "id='credit_card_first_name'")
 
     payment.fields[:credit_card][:last_name].should include("<input type='text'",
                                                              "name='credit_card[last_name]'",
                                                              "id='credit_card_last_name'")
-    
+
     payment.fields[:credit_card][:last_name ].should_not include("autofocus=true") # it's not the first field in the form
 
     payment.fields[:credit_card][:number].should include("<input",
                                                          " type='text'",
-                                                         "autocomplete='off'", 
+                                                         "autocomplete='off'",
                                                          "name='credit_card[number]'",
                                                          "id='credit_card_number'")
 
@@ -101,9 +101,9 @@ describe Rack::Payment::Helper, '#fields' do
                                :cvv => '123', :year => '2015', :month => '01', :type => 'visa'
 
     payment.fields[:credit_card][:first_name].should include("<input ",
-                                                             "type='text'", 
-                                                             "value='remi'", 
-                                                             "autofocus='true'", 
+                                                             "type='text'",
+                                                             "value='remi'",
+                                                             "autofocus='true'",
                                                              "name='credit_card[first_name]'",
                                                              "id='credit_card_first_name'")
   end

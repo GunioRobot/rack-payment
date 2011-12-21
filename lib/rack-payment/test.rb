@@ -19,7 +19,7 @@ module ActiveMerchant #:nodoc:
 
         YAML.load(yml)
       end
-    
+
       def setup_purchase amount, options
         raise "amount required"  if amount.nil?
         raise "options required" if options.nil? or options.empty?

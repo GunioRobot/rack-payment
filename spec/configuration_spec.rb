@@ -24,7 +24,7 @@ describe Rack::Payment, 'configuration' do
 
     payment.send("#{name}=", value)
     payment.send(name).should == value
-    
+
     # can also set to nil
     payment.send("#{name}=", nil)
     payment.send(name).should == nil
@@ -78,7 +78,7 @@ describe Rack::Payment, 'configuration' do
     tmpfile.print({ :gateway => :bogus, :foo => 'bar' }.to_yaml)
     tmpfile.close
     Rack::Payment.yml_file_names = [tmpfile.path]
-    
+
     Rack::Payment.new(@app).on_success.should be_nil
     Rack::Payment.new(@app, :on_success => '/foo').on_success.should == '/foo'
 

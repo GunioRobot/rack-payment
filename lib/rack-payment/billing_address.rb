@@ -38,7 +38,7 @@ module Rack     #:nodoc:
 
       # Returns a hash that can be passed to a Gateway#authorize call
       def active_merchant_hash
-        { 
+        {
           :name     => name,
           :address1 => street,
           :city     => city,

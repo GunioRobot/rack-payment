@@ -36,7 +36,7 @@ describe Rack::Payment, 'overriding UI' do
     fill_in :monies, :with => 15.95 # it has the money and credit card info, all on the same page
 
     # custom form with different field names ...
-    { 
+    {
       :first_name       => 'remi',
       :last_name        => 'taylor',
       :number           => '1',     # 1 is valid using the BogusGateway
@@ -45,7 +45,7 @@ describe Rack::Payment, 'overriding UI' do
       :expiration_year  => '2015',
       :type             => 'visa'
     }.each { |key, value| fill_in "credit_card[#{key}]", :with => value.to_s }
-    { 
+    {
       :name     => 'remi',
       :address1 => '123 Chunky Bacon St.',
       :city     => 'Magical Land',
@@ -68,7 +68,7 @@ describe Rack::Payment, 'overriding UI' do
     fill_in :monies, :with => 15.95 # it has the money and credit card info, all on the same page
 
     # custom form with different field names ...
-    { 
+    {
       :first_name       => 'remi',
       :last_name        => 'taylor',
       :number           => '2',    # 2 = invalid

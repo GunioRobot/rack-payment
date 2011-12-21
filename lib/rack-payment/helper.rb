@@ -1,11 +1,11 @@
 module Rack     #:nodoc:
   class Payment #:nodoc:
 
-    # When you include {Rack::Payment::Methods} into your application, you 
+    # When you include {Rack::Payment::Methods} into your application, you
     # get a {#payment} method/object which gives you an instance of {Rack::Payment::Helper}
     #
     # {Rack::Payment::Helper} is the main API for working with {Rack::Payment}.  You use it to:
-    # 
+    #
     # Set the {#amount} you want to charge someone
     #
     # Spit out the HTML for a credit card / billing information {#form} into your own application
@@ -23,7 +23,7 @@ module Rack     #:nodoc:
 
       def_delegators :response, :amount_paid, :success?,
                                 :raw_authorize_response, :raw_authorize_response=,
-                                :raw_capture_response,   :raw_capture_response=, 
+                                :raw_capture_response,   :raw_capture_response=,
                                 :raw_express_response,   :raw_express_response=
 
       def_delegators :rack_payment, :gateway, :built_in_form_path, :logger, :logger=
@@ -56,7 +56,7 @@ module Rack     #:nodoc:
       end
 
       def use_express!
-        self.use_express = true 
+        self.use_express = true
       end
 
       # helper for getting the src of the express checkout image
@@ -225,9 +225,9 @@ module Rack     #:nodoc:
       end
 
       def options_for_credit_card_type selected = nil
-        [ ['visa', 'Visa'], ['master', 'MasterCard'], ['american_express', 'American Express'], 
+        [ ['visa', 'Visa'], ['master', 'MasterCard'], ['american_express', 'American Express'],
           ['discover', 'Discover'] ].map { |value, name|
-        
+
           if selected and selected.to_s == value.to_s
             "<option value='#{ value }' selected='selected'>#{ name }</option>"
           else

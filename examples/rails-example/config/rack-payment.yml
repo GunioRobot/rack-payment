@@ -1,7 +1,7 @@
-test: 
+test:
   gateway:   bogus
   test_mode: true
 
-development: 
+development:
   gateway:   bogus
   test_mode: true

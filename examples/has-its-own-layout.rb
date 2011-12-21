@@ -73,7 +73,7 @@ Order successful.
   %body
     %h1 Rack::Payment Sample
     #content= yield
-    
+
 @@ styles
 
 body

@@ -39,14 +39,14 @@ describe 'Logging' do
 
   it 'should be able to set a logger on a Rack::Purchase (can set it via a helper)' do
     payment = Rack::Payment.new.payment
-    
+
     payment.logger = Logger.new @log_file
     File.file?(@log_file).should be_true # it writes out a line when it's created
     log_lines.length.should == 1
 
     payment.credit_card.update :first_name => 'remi', :last_name => 'taylor', :number => TEST_HELPER.cc_number.valid,
                                :cvv => '123', :year => '2015', :month => '01', :type => 'visa'
-    payment.billing_address.update :name => 'remi taylor', :street => '101 Main St', :city => 'New York', :state => 'NY', 
+    payment.billing_address.update :name => 'remi taylor', :street => '101 Main St', :city => 'New York', :state => 'NY',
                                    :country => 'USA', :zip => '12345'
     payment.amount = 15.95
 

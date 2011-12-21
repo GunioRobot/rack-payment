@@ -23,7 +23,7 @@ describe 'Example Rails app' do
     visit '/'
     click_link 'Cookie'
     click_link 'BUY!'
-    
+
     last_response.should contain('Custom Credit Card View')
     fill_in_valid_credit_card :number => nil
     fill_in_valid_billing_address

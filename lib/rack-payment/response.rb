@@ -1,7 +1,7 @@
 module Rack     #:nodoc:
   class Payment #:nodoc:
 
-    # Represents the response you get when you try to make a purchase 
+    # Represents the response you get when you try to make a purchase
     # from ActiveMerchant
     class Response
 

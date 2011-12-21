@@ -1,7 +1,7 @@
 module Rack     #:nodoc:
   class Payment #:nodoc:
 
-    # When you call {Rack::Payment#call}, a new {Rack::Payment::Request} instance 
+    # When you call {Rack::Payment#call}, a new {Rack::Payment::Request} instance
     # gets created and it does the actual logic to figure out what to do.
     #
     # The {#finish} method "executes" this class (it figures out what to do).
@@ -9,10 +9,10 @@ module Rack     #:nodoc:
     class Request
       extend Forwardable
 
-      def_delegators :payment_instance, :app, :gateway, :express_gateway, :built_in_form_path, 
+      def_delegators :payment_instance, :app, :gateway, :express_gateway, :built_in_form_path,
                                         :env_instance_variable, :env_helper_variable, :session_variable,
                                         :rack_session_variable, :express_ok_path, :express_cancel_path
-      
+
       def_delegators :request, :params
 
       def_delegators :payment, :errors, :credit_card, :billing_address
@@ -38,7 +38,7 @@ module Rack     #:nodoc:
       attr_accessor :app_response
 
       # Whether or not this request's POST came from our built in forms.
-      # 
+      #
       #  * If true, we think the POST came from our form.
       #  * If false, we think the POST came from a user's custom form.
       #
@@ -70,7 +70,7 @@ module Rack     #:nodoc:
         session[:amount] = value
       end
 
-      # Instantiates a {Rack::Payment::Request} object which basically wraps a 
+      # Instantiates a {Rack::Payment::Request} object which basically wraps a
       # single request and handles all of the logic to determine what to do.
       #
       # Calling {#finish} will return the actual Rack response
@@ -98,9 +98,9 @@ module Rack     #:nodoc:
         # The application returned a 402 ('Payment Required')
         if app_response.status == 402
           self.amount_in_session = payment.amount
-          
+
           return setup_express_purchase if payment.use_express?
-          
+
           if payment.card_or_address_partially_filled_out?
             return process_credit_card
           else
@@ -110,27 +110,27 @@ module Rack     #:nodoc:
         # The requested path matches our built-in form
         elsif request.path_info == built_in_form_path
           self.post_came_from_the_built_in_forms = true
-          return process_credit_card 
+          return process_credit_card
 
         # The requested path matches our callback for express payments
         elsif request.path_info == express_ok_path
           return process_express_payment_callback
         end
 
-        # If we haven't returned anything, there was no reason for the 
-        # middleware to handle this request so we return the real 
+        # If we haven't returned anything, there was no reason for the
+        # middleware to handle this request so we return the real
         # application's response.
         app_response.finish
       end
 
-      # If the params include fields that start with credit_card_ or 
-      # the params have a hash of credit card variables, we use them 
+      # If the params include fields that start with credit_card_ or
+      # the params have a hash of credit card variables, we use them
       # to update our credit card information.
       #
       # We do the same with the billing address.
       def update_credit_card_and_billing_address_from_params
-        # The params *should* be set on the payment data object, but we accept 
-        # POST requests too, so we check the POST variables for credit_card 
+        # The params *should* be set on the payment data object, but we accept
+        # POST requests too, so we check the POST variables for credit_card
         # or billing_address fields
         #
         # TODO deprecate this in favor of the more conventional credit_card[number] syntax?
@@ -140,7 +140,7 @@ module Rack     #:nodoc:
             payment.credit_card.update $1 => value
           elsif field =~ /billing_address_(\w+)/
             payment.billing_address.update $1 => value
-          end 
+          end
         end
 
         # We also accept credit_card[number] style params, which Rack supports
@@ -152,7 +152,7 @@ module Rack     #:nodoc:
         end
       end
 
-      # Gets parameters, attempts an #authorize call, attempts a #capture call, 
+      # Gets parameters, attempts an #authorize call, attempts a #capture call,
       # and renders the results.
       def process_credit_card
         payment.amount ||= amount_in_session
@@ -172,11 +172,11 @@ module Rack     #:nodoc:
         #      and they should be overridable
 
         # TODO go BOOM if the express gateway isn't set!
-      
+
         # TODO catch exceptions
 
         # TODO catch ! success?
-        response = express_gateway.setup_purchase payment.amount_in_cents, :ip                => request.ip, 
+        response = express_gateway.setup_purchase payment.amount_in_cents, :ip                => request.ip,
                                                                            :return_url        => express_ok_url,
                                                                            :cancel_return_url => express_cancel_url
 
@@ -209,7 +209,7 @@ module Rack     #:nodoc:
 
       # Rails keeps track of its own Request/Response.
       #
-      # If we're using Rails, we need to delete these variables 
+      # If we're using Rails, we need to delete these variables
       # to trick Rails into thinking that this is a new request.
       #
       # Kind of icky!

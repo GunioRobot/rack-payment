@@ -11,7 +11,7 @@ end
 DataMapper.auto_upgrade!
 
 # NOTE
-# by default, if you include the module, it should look in the appropriate 
+# by default, if you include the module, it should look in the appropriate
 # places for a configuration file for Rack::Payment
 #
 # we'll figure it out more as we use it more ...
@@ -30,7 +30,7 @@ describe 'Persistant Credit Card' do
       @user = DataMapperUser.create :name => 'remi'
       DataMapperUser.count.should == 1
     end
-  
+
     it 'should be able to persist a credit card on a model' do
 
       @user.credit_card.number.should be_nil

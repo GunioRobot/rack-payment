@@ -79,7 +79,7 @@ Order successful.
       %label
         = field.gsub('_', ' ').capitalize
         %input{ :type => 'text', :name => full_field, :value => payment.billing_address[field] }
-  
+
   %input{ :type => 'submit', :value => 'Complete Purchase' }
 
 @@ layout
@@ -93,7 +93,7 @@ Order successful.
   %body
     %h1 Rack::Payment Sample
     #content= yield
-    
+
 @@ styles
 
 body

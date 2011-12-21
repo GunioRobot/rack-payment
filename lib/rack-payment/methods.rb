@@ -12,7 +12,7 @@ module Rack     #:nodoc:
       #
       # This assumes that this is available via env['rack.payment']
       #
-      # If you override the {Rack::Payment#env_instance_variable}, you will need to 
+      # If you override the {Rack::Payment#env_instance_variable}, you will need to
       # pass that string as an option to {#rack_payment}
       def payment env_instance_variable = Rack::Payment::DEFAULT_OPTIONS['env_instance_variable']
         rack_payment_instance = rack_payment(env_instance_variable)
@@ -23,7 +23,7 @@ module Rack     #:nodoc:
       #
       # This assumes that this is available via env['rack.payment']
       #
-      # If you override the {Rack::Payment#env_instance_variable}, you will need to 
+      # If you override the {Rack::Payment#env_instance_variable}, you will need to
       # pass that string as an option to {#rack_payment}
       def rack_payment env_instance_variable = Rack::Payment::DEFAULT_OPTIONS['env_instance_variable']
         _request_env[env_instance_variable]
@@ -31,8 +31,8 @@ module Rack     #:nodoc:
 
       # This method returns the Rack 'env' for the current request.
       #
-      # This looks for #env or #request.env by default.  If these don't return 
-      # something, then we raise an exception and you should override this method 
+      # This looks for #env or #request.env by default.  If these don't return
+      # something, then we raise an exception and you should override this method
       # so it returns the Rack env that we need.
       #
       # @private

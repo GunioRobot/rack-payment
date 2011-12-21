@@ -1,4 +1,4 @@
-# Helper to include the things we need to include in a 
+# Helper to include the things we need to include in a
 # describe block to web Webrat and whatnot
 module IntegrationSpec
   def self.included base

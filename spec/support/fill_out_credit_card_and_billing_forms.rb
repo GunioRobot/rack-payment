@@ -32,7 +32,7 @@ def fill_in_valid_credit_card fields = {}
 end
 
 def fill_in_credit_card fields = {}
-  { 
+  {
     :first_name       => 'remi',
     :last_name        => 'taylor',
     :number           => '1',     # 1 is valid using the BogusGateway
@@ -46,7 +46,7 @@ def fill_in_credit_card fields = {}
 end
 
 def billing_address_hash
-  { 
+  {
     :name     => 'remi',
     :address1 => '123 Chunky Bacon St.',
     :city     => 'Magical Land',

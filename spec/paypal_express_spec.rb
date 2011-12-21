@@ -39,7 +39,7 @@ describe Rack::Payment, 'PayPal Express' do
     last_response.location.should == 'http://www.some-express-gateway-url/' # from BogusExpressGateway
 
     visit klass.rack_payment_instance.express_ok_path + '?token=12345' # need to make sure that the gateway
-                                                                       # knows this token and will give us 
+                                                                       # knows this token and will give us
                                                                        # back the details we expect
 
     last_response.should contain('Order successful')

@@ -4,28 +4,28 @@ module Rack #:nodoc:
   #
   #   use Rack::Payment, :gateway => 'paypal', :login => '...', :password => '...'
   #
-  # Rack::Payment wraps {ActiveMerchant} so any gateway that {ActiveMerchant} supports 
+  # Rack::Payment wraps {ActiveMerchant} so any gateway that {ActiveMerchant} supports
   # *should* be usable in Rack::Payment.
   #
-  # When you `#call` this middleware, a new {Rack::Payment::Request} instance 
+  # When you `#call` this middleware, a new {Rack::Payment::Request} instance
   # gets created and it does the actual logic to figure out what to do.
   #
   class Payment
 
     # Default file names that we used to look for yml configuration.
     # You can change {Rack::Payment::yml_file_names} to override.
-    YML_FILE_NAMES = %w( .rack-payment.yml rack-payment.yml config/rack-payment.yml 
+    YML_FILE_NAMES = %w( .rack-payment.yml rack-payment.yml config/rack-payment.yml
                          ../config/rack-payment payment.yml ../payment.yml config/payment.yml )
 
     class << self
 
-      # A string of file names that we use to look for options, 
+      # A string of file names that we use to look for options,
       # if options are not passes to the Rack::Payment constructor.
       #
       # @return [Array(String)]
       attr_accessor :yml_file_names
 
-      # A standard logger.  Defaults to nil.  We assume that this has 
+      # A standard logger.  Defaults to nil.  We assume that this has
       # methods like #info that accept a String or a block.
       #
       # If this is set, new instances of Rack::Payment will use this logger by default.
@@ -33,7 +33,7 @@ module Rack #:nodoc:
       # @return [Logger]
       attr_accessor :logger
 
-      # Tracks all of the launched {Rack::Payment} instances, 
+      # Tracks all of the launched {Rack::Payment} instances,
       # providing a singleton-esque way of accessing the last {#instance}.
       # @return [Array(Rack::Payment)]
       attr_accessor :instances
@@ -44,8 +44,8 @@ module Rack #:nodoc:
     @yml_file_names = YML_FILE_NAMES
 
     # Returns the latest {Rack::Payment} instantiated.
-    # If more than 1 instance of {Rack::Payment} has been 
-    # instantiated, this blows up!  We want there to only 
+    # If more than 1 instance of {Rack::Payment} has been
+    # instantiated, this blows up!  We want there to only
     # be 1 {Rack::Payment} in a given process when we use this.
     # @return [Rack::Payment]
     def self.instance
@@ -58,7 +58,7 @@ module Rack #:nodoc:
 
     # These are the default values that we use to set the Rack::Payment attributes.
     #
-    # These can all be overriden by passing the attribute name and new value to 
+    # These can all be overriden by passing the attribute name and new value to
     # the Rack::Payment constructor:
     #
     #   use Rack::Payment, :on_success => '/my-custom-page'
@@ -80,7 +80,7 @@ module Rack #:nodoc:
     # @return [#call]
     attr_accessor :app
 
-    # A standard logger.  Defaults to nil.  We assume that this has 
+    # A standard logger.  Defaults to nil.  We assume that this has
     # methods like #info that accept a String or a block
     # @return [Logger]
     attr_accessor :logger
@@ -99,7 +99,7 @@ module Rack #:nodoc:
     # @return [String, nil] (nil)
     attr_accessor :on_error
 
-    # This is the path that the built-in form POSTs to when submitting 
+    # This is the path that the built-in form POSTs to when submitting
     # Credit Card data.  This is only used if you use the built_in_form.
     # See {#use_built_in_form} to enable/disable using the default form
     # @return [String]
@@ -108,54 +108,54 @@ module Rack #:nodoc:
     # TODO implement!  NOT IMPLEMENTED YET
     attr_accessor :use_built_in_form
 
-    # This is the path that we have express gateways (Paypal Express) 
+    # This is the path that we have express gateways (Paypal Express)
     # redirect to, after a purchase has been made.
     # @return [String]
     attr_accessor :express_ok_path
 
-    # This is the path that we have express gateways (Paypal Express) 
+    # This is the path that we have express gateways (Paypal Express)
     # redirect to if the user cancels their purchase.
     # @return [String]
     attr_accessor :express_cancel_path
 
-    # The name of the Rack env variable to use to access the instance 
+    # The name of the Rack env variable to use to access the instance
     # of Rack::Payment that your application is using as middleware.
     # @return [String]
     attr_accessor :env_instance_variable
 
-    # The name of the Rack env variable to use to access data about 
-    # the purchase being made.  Getting this out of the Rack env 
+    # The name of the Rack env variable to use to access data about
+    # the purchase being made.  Getting this out of the Rack env
     # gives you a {Rack::Payment::Helper} object.
     # @return [String]
     attr_accessor :env_helper_variable
 
-    # The name of the variable we put into the Rack::Session 
-    # to store anything that {Rack::Payment} needs to keep track 
-    # of between requests, eg. the amount that the user is trying 
+    # The name of the variable we put into the Rack::Session
+    # to store anything that {Rack::Payment} needs to keep track
+    # of between requests, eg. the amount that the user is trying
     # to spend.
     # @return [String]
     attr_accessor :session_variable
 
-    # The name of the Rack env variable used for the Rack::Session, 
+    # The name of the Rack env variable used for the Rack::Session,
     # eg. `rack.session` (the default for Rack::Session::Cookie)
     # @return [String]
     attr_accessor :rack_session_variable
 
     # TODO update the documentation for this!
-    # This is the encryption key used to encrypt/decrypt credit card information 
+    # This is the encryption key used to encrypt/decrypt credit card information
     # when you include {Rack::Payment::???}
     attr_accessor :encryption_key
 
-    # The name of a type of ActiveMerchant::Billing::Gateway that we 
-    # want to use, eg. 'paypal'.  We use this to get the actual 
+    # The name of a type of ActiveMerchant::Billing::Gateway that we
+    # want to use, eg. 'paypal'.  We use this to get the actual
     # ActiveMerchant::Billing::Gateway class, eg. ActiveMerchant::Billing::Paypal
     # @return [String]
     attr_accessor :gateway_type
 
-    # The options that are passed to {Rack::Payment} when you include it as a 
+    # The options that are passed to {Rack::Payment} when you include it as a
     # middleware, minus the options that {Rack::Payment} uses.
     #
-    # For example, if you instantiate a {Rack::Payment} middleware with Paypal, 
+    # For example, if you instantiate a {Rack::Payment} middleware with Paypal,
     # this will probably include :login, :password, and :signature
     # @return [Hash]
     attr_accessor :gateway_options
@@ -178,7 +178,7 @@ module Rack #:nodoc:
 
     # The name of the gateway to use for an express gateway.
     #
-    # If our {#gateway} is a ActiveMerchant::Billing::PaypalGateway, 
+    # If our {#gateway} is a ActiveMerchant::Billing::PaypalGateway,
     # this will return `paypal_express`
     #
     # Uses the class of #gateway to determine.
@@ -223,7 +223,7 @@ module Rack #:nodoc:
       @gateway_options = options
       @gateway_type    = options['gateway'] || options[:gateway]
 
-      # Before trying to instantiate a gateway using these options, let's remove *our* options so we 
+      # Before trying to instantiate a gateway using these options, let's remove *our* options so we
       # don't end up passing them to the gateway's constructor, possibly blowing it up!
 
       @test_mode = @gateway_options.delete(:test_mode)  if @gateway_options.keys.include?(:test_mode)
@@ -235,9 +235,9 @@ module Rack #:nodoc:
         send "#{name}=", value
 
         # override the value from options, if passed
-        if @gateway_options[name.to_s] 
+        if @gateway_options[name.to_s]
           send "#{name.to_s}=", @gateway_options.delete(name.to_s)
-        elsif @gateway_options[name.to_s.to_sym] 
+        elsif @gateway_options[name.to_s.to_sym]
           send "#{name.to_s.to_sym}=", @gateway_options.delete(name.to_s.to_sym)
         end
       end
@@ -283,8 +283,8 @@ module Rack #:nodoc:
       return {}
     end
 
-    # Returns a new {Rack::Payment::Helper} instance which can be 
-    # used to fire off single payments (without needing to make 
+    # Returns a new {Rack::Payment::Helper} instance which can be
+    # used to fire off single payments (without needing to make
     # web requests).
     # @return [Rack::Payment::Helper]
     def payment

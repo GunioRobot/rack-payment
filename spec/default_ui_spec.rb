@@ -3,10 +3,10 @@ require File.dirname(__FILE__) + '/spec_helper'
 describe Rack::Payment, 'default UI' do
   include IntegrationSpec
 
-  # For every one of these examples, we go ahead and visit 
-  # the home page of SimpleApp and fill in an amount of 
-  # money that we want to spend and call 'Checkout' 
-  # which will render the default Rack::Purchase 
+  # For every one of these examples, we go ahead and visit
+  # the home page of SimpleApp and fill in an amount of
+  # money that we want to spend and call 'Checkout'
+  # which will render the default Rack::Purchase
   # billing info page so we can enter our credit card info.
   before do
     set_rack_app SimpleApp.new
